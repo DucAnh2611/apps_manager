@@ -1,0 +1,12 @@
+node_modules
+dist
+out
+.DS_Store
+.eslintcache
+*.log*
+.claude
+.cursor
+CLAUDE.md
+build
+pnpm-lock.yaml
+.env
