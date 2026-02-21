@@ -1,5 +1,5 @@
 import { app, BrowserWindow, net } from 'electron'
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
+import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs'
 import { join } from 'path'
 import * as semver from 'semver'
 import {
@@ -193,6 +193,27 @@ export async function downloadLanguage(
   } catch (err) {
     return { success: false, error: err instanceof Error ? err.message : 'Download failed' }
   }
+}
+
+export function uninstallLanguage(code: string): { success: boolean } {
+  try {
+    const filePath = join(languagesDir, `${code}.json`)
+    if (existsSync(filePath)) {
+      unlinkSync(filePath)
+    }
+    const meta = getInstalledMeta()
+    delete meta[code]
+    saveInstalledMeta(meta)
+    return { success: true }
+  } catch {
+    return { success: false }
+  }
+}
+
+export async function refreshAvailableLanguages(): Promise<LanguageMeta[]> {
+  cachedAvailable = null
+  cachedAvailableTime = 0
+  return await getAvailableLanguages()
 }
 
 export function getTranslations(code: string): Record<string, string> {

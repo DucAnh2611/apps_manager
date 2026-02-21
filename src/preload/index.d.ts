@@ -232,6 +232,8 @@ interface AppsManagerAPI {
   getAvailableLanguages: () => Promise<LanguageMeta[]>
   getInstalledLanguages: () => Promise<Record<string, string>>
   downloadLanguage: (code: string) => Promise<{ success: boolean; error?: string }>
+  uninstallLanguage: (code: string) => Promise<{ success: boolean }>
+  refreshAvailableLanguages: () => Promise<LanguageMeta[]>
   getTranslations: (code: string) => Promise<Record<string, string>>
   onLanguageProgress: (callback: (data: LanguageProgress) => void) => () => void
 }

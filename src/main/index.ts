@@ -53,7 +53,6 @@ function createWindow(): BrowserWindow {
     show: false,
     title: 'Apps Manager',
     center: true,
-    skipTaskbar: true,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {

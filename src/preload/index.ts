@@ -75,6 +75,8 @@ const api = {
   getInstalledLanguages: () => ipcRenderer.invoke('language:get-installed'),
   downloadLanguage: (code: string) => ipcRenderer.invoke('language:download', code),
   getTranslations: (code: string) => ipcRenderer.invoke('language:get-translations', code),
+  uninstallLanguage: (code: string) => ipcRenderer.invoke('language:uninstall', code),
+  refreshAvailableLanguages: () => ipcRenderer.invoke('language:refresh'),
   onLanguageProgress: (cb: (data: unknown) => void) => onEvent('language:download-progress', cb)
 }
 

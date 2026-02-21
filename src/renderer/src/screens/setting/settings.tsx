@@ -18,6 +18,7 @@ import SettingsAppearance from './apperance'
 import SettingsBehavior from './behavior'
 import SettingsLanguage from './language'
 import SettingsStart from './start'
+import SettingsUpdates from './updates'
 
 export default function Settings() {
   const { isLoading, data: settings } = useSettings()
@@ -48,6 +49,7 @@ export default function Settings() {
         <div className="h-fit flex-1 flex flex-col gap-4">
           <SettingsAppearance />
           <SettingsLanguage />
+          <SettingsUpdates />
         </div>
       </div>
 

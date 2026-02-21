@@ -1,11 +1,11 @@
-import { NAVIGATION_POSITIONS } from '../../../shared/constants/settings'
 import useExtractSetting from '@renderer/hooks/use-extract-setting'
 import { useSettings } from '@renderer/hooks/use-settings'
 import { cn } from '@renderer/lib/utils'
+import { NAVIGATION_POSITIONS } from '../../../shared/constants/settings'
 import Navigation from './nav'
 import Titlebar from './titlebar'
-import UpdateBanner from './update-banner'
 import { ScrollArea } from './ui/scroll-area'
+import UpdateBanner from './update-banner'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { data: settings } = useSettings()
@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <div
         className={cn(
-          'flex flex-1 min-h-0',
+          'flex flex-1 min-h-0 relative overflow-hidden',
           schemaSetting.navigation_auto_hide === 'false' && {
             'flex-col': schemaSetting.navigation_position === NAVIGATION_POSITIONS.TOP,
             'flex-col-reverse': schemaSetting.navigation_position === NAVIGATION_POSITIONS.BOTTOM,

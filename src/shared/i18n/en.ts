@@ -121,6 +121,23 @@ const en = {
   'settings.language.loadingLanguages': 'Loading languages...',
   'settings.language.noLanguages': 'No languages available',
   'settings.language.builtIn': 'Built-in',
+  'settings.language.uninstall': 'Uninstall',
+  'settings.language.uninstalling': 'Removing...',
+  'settings.language.uninstallTitle': 'Uninstall {name}?',
+  'settings.language.uninstallDescription':
+    'This will remove the language pack. You can download it again later.',
+  'settings.language.uninstallConfirm': 'Uninstall',
+  'settings.language.uninstallCancel': 'Cancel',
+
+  // Updates settings
+  'settings.updates': 'Updates',
+  'settings.updates.checkApp': 'Check for app updates',
+  'settings.updates.checkApp.description': 'Manually check for a new version of the app',
+  'settings.updates.checkLanguages': 'Check for language updates',
+  'settings.updates.checkLanguages.description': 'Refresh the list of available language packs',
+  'settings.updates.checking': 'Checking...',
+  'settings.updates.upToDate': 'Up to date',
+  'settings.updates.check': 'Check now',
 
   // System stats
   'stats.systemMonitor': 'System Monitor',

@@ -1,3 +1,14 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@renderer/components/ui/alert-dialog'
 import { Badge } from '@renderer/components/ui/badge'
 import { Button } from '@renderer/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@renderer/components/ui/card'
@@ -7,9 +18,11 @@ import { useI18n } from '@renderer/hooks/use-i18n'
 import {
   useAvailableLanguages,
   useDownloadLanguage,
-  useInstalledLanguages
+  useInstalledLanguages,
+  useRefreshAvailableLanguages,
+  useUninstallLanguage
 } from '@renderer/hooks/use-languages'
-import { Download, Loader2, RefreshCw } from 'lucide-react'
+import { Download, Loader2, RefreshCw, Trash2 } from 'lucide-react'
 import { SectionField } from './components/section-field'
 
 export default function SettingsLanguage() {
@@ -17,6 +30,8 @@ export default function SettingsLanguage() {
   const { data: available, isLoading: loadingAvailable } = useAvailableLanguages()
   const { data: installed } = useInstalledLanguages()
   const downloadLang = useDownloadLanguage()
+  const uninstallLang = useUninstallLanguage()
+  const refreshLangs = useRefreshAvailableLanguages()
 
   // Build language items: English (built-in) + available from remote
   const languageItems = [
@@ -50,10 +65,29 @@ export default function SettingsLanguage() {
     }
   }
 
+  const handleUninstallLanguage = async (code: string) => {
+    // If uninstalling the active language, switch to English first
+    if (code === locale) {
+      await setLocale('en')
+    }
+    uninstallLang.mutate(code)
+  }
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">{t('settings.language')}</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-xl">{t('settings.language')}</CardTitle>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 cursor-pointer"
+            disabled={refreshLangs.isPending}
+            onClick={() => refreshLangs.mutate()}
+          >
+            <RefreshCw className={`h-4 w-4 ${refreshLangs.isPending ? 'animate-spin' : ''}`} />
+          </Button>
+        </div>
       </CardHeader>
 
       <Separator />
@@ -90,6 +124,8 @@ export default function SettingsLanguage() {
               const isInstalled = !!installed?.[lang.code]
               const hasUpdate = isInstalled && installed[lang.code] !== lang.version
               const isDownloading = downloadLang.isPending && downloadLang.variables === lang.code
+              const isUninstalling =
+                uninstallLang.isPending && uninstallLang.variables === lang.code
               const isCurrent = locale === lang.code
 
               return (
@@ -149,6 +185,45 @@ export default function SettingsLanguage() {
                           ? t('settings.language.downloading')
                           : t('settings.language.download')}
                       </Button>
+                    )}
+                    {isInstalled && (
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button
+                            size="xs"
+                            variant="ghost"
+                            className="cursor-pointer text-destructive hover:text-destructive hover:bg-destructive/10"
+                            disabled={isUninstalling}
+                          >
+                            {isUninstalling ? (
+                              <Loader2 className="h-3 w-3 animate-spin" />
+                            ) : (
+                              <Trash2 className="h-3 w-3" />
+                            )}
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              {t('settings.language.uninstallTitle', { name: lang.nativeName })}
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              {t('settings.language.uninstallDescription')}
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel className="cursor-pointer">
+                              {t('settings.language.uninstallCancel')}
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                              className="cursor-pointer"
+                              onClick={() => handleUninstallLanguage(lang.code)}
+                            >
+                              {t('settings.language.uninstallConfirm')}
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     )}
                   </div>
                 </div>

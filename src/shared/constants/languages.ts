@@ -2,6 +2,8 @@ export const LANGUAGE_CHANNELS = {
   GET_AVAILABLE: 'language:get-available',
   GET_INSTALLED: 'language:get-installed',
   DOWNLOAD: 'language:download',
+  UNINSTALL: 'language:uninstall',
+  REFRESH: 'language:refresh',
   GET_TRANSLATIONS: 'language:get-translations',
   DOWNLOAD_PROGRESS: 'language:download-progress'
 } as const

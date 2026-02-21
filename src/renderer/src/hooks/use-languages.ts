@@ -25,3 +25,24 @@ export function useDownloadLanguage() {
     }
   })
 }
+
+export function useUninstallLanguage() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (code: string) => api.uninstallLanguage(code),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['languages', 'installed'] })
+    }
+  })
+}
+
+export function useRefreshAvailableLanguages() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => api.refreshAvailableLanguages(),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['languages', 'available'], data)
+      queryClient.invalidateQueries({ queryKey: ['languages', 'installed'] })
+    }
+  })
+}

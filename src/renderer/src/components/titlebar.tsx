@@ -1,7 +1,6 @@
 import { api } from '@renderer/lib/api'
 import { cn } from '@renderer/lib/utils'
-import { Minus, Square, X } from 'lucide-react'
-import { Copy } from 'lucide-react'
+import { Copy, Minus, Square, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export default function Titlebar() {
@@ -13,7 +12,7 @@ export default function Titlebar() {
   }, [])
 
   return (
-    <div className="flex items-center justify-between h-8 select-none titlebar">
+    <div className="flex items-center justify-between h-8 select-none titlebar z-999 bg-background border-b">
       <div className="flex-1 h-full px-3 flex items-center text-xs font-medium text-muted-foreground">
         Apps Manager
       </div>

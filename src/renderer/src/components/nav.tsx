@@ -97,7 +97,7 @@ function Floating({ position, autoHide, delay }: NavigationBaseProps) {
   return (
     <div
       ref={barRef}
-      className={cn('fixed rounded-full p-2 border shadow flex z-10 bg-background', {
+      className={cn('absolute rounded-full p-2 border shadow flex z-10 bg-background', {
         'bottom-[2%] left-1/2 -translate-x-1/2': position === NAVIGATION_POSITIONS.BOTTOM,
         'top-[2%] left-1/2 -translate-x-1/2': position === NAVIGATION_POSITIONS.TOP,
         'left-[2%] top-1/2 -translate-y-1/2': position === NAVIGATION_POSITIONS.LEFT,
@@ -177,7 +177,7 @@ function Sidebar({ position, autoHide, delay }: NavigationBaseProps) {
         'left-0 top-0': position === NAVIGATION_POSITIONS.LEFT,
         'right-0 top-0': position === NAVIGATION_POSITIONS.RIGHT,
         relative: !autoHide,
-        'fixed transition-transform duration-200 z-999': autoHide,
+        'absolute transition-transform duration-200 z-10': autoHide,
         '-translate-x-[70%]': shouldCollapse && position === NAVIGATION_POSITIONS.LEFT,
         'translate-x-[70%]': shouldCollapse && position === NAVIGATION_POSITIONS.RIGHT,
         '-translate-y-[70%]': shouldCollapse && position === NAVIGATION_POSITIONS.TOP,
