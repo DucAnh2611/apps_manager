@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import { SETTING_KEYS } from '../../shared/constants/settings'
 import * as appRepo from '../database/repositories/app.repository'
 import * as settingsRepo from '../database/repositories/settings.repository'
@@ -96,6 +96,8 @@ const FALLBACK_USAGE: AppUsage = {
 }
 
 export function registerSystemHandlers(mainWindow: BrowserWindow): void {
+  ipcMain.handle('system:get-app-version', () => app.getVersion())
+
   // Window control handlers
   ipcMain.handle('window:minimize', () => mainWindow.minimize())
   ipcMain.handle('window:maximize', () => {

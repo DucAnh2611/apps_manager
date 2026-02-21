@@ -1,3 +1,4 @@
+import StringNode from '@renderer/components/string-node'
 import { Button } from '@renderer/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@renderer/components/ui/card'
 import { Separator } from '@renderer/components/ui/separator'
@@ -5,8 +6,16 @@ import { useI18n } from '@renderer/hooks/use-i18n'
 import { useRefreshAvailableLanguages } from '@renderer/hooks/use-languages'
 import { api } from '@renderer/lib/api'
 import { Loader2, RefreshCw } from 'lucide-react'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { SectionField } from './components/section-field'
+
+function useAppVersion(): string {
+  const [version, setVersion] = useState('')
+  useEffect(() => {
+    api.getAppVersion().then(setVersion)
+  }, [])
+  return version
+}
 
 type CheckStatus = 'idle' | 'checking' | 'up-to-date' | 'available'
 
@@ -17,6 +26,7 @@ export default function SettingsUpdates() {
   const refreshLangs = useRefreshAvailableLanguages()
   const appTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const langTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+  const appVersion = useAppVersion()
 
   const handleCheckApp = useCallback(async () => {
     setAppStatus('checking')
@@ -47,7 +57,18 @@ export default function SettingsUpdates() {
       case 'checking':
         return t('settings.updates.checking')
       case 'up-to-date':
-        return t('settings.updates.upToDate')
+        return (
+          <StringNode
+            text={
+              <span>
+                {t('settings.updates.upToDate')}
+                <span className="text-xs text-muted-foreground ml-2 italic">
+                  {appVersion ? `v${appVersion}` : ''}
+                </span>{' '}
+              </span>
+            }
+          />
+        )
       case 'available':
         return t('update.available', { version: '' }).trim()
       default:

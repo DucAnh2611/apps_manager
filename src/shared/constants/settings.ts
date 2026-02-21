@@ -11,6 +11,7 @@ export const SETTING_KEYS = {
   NAVIGATION_AUTO_HIDE_DELAY: 'navigation_auto_hide_delay',
   NAVIGATION_STYLE: 'navigation_style',
   NAVIGATION_POSITION: 'navigation_position',
+  NAVIGATION_ITEMS_ALIGNMENT: 'navigation_items_alignment',
   APP_COLUMNS: 'app_columns',
   LANGUAGE: 'language'
 } as const
@@ -47,6 +48,12 @@ export const MONITOR_INTERVALS = {
   THIRTY_SECONDS: '30000'
 } as const
 
+export const NAVIGATION_ITEMS_ALIGNMENT = {
+  START: 'start',
+  CENTER: 'center',
+  END: 'end'
+} as const
+
 // Setting option arrays for UI dropdowns
 export const monitorIntervalOptions = [
   { label: '2', value: MONITOR_INTERVALS.TWO_SECONDS },
@@ -77,6 +84,21 @@ export const navigationPositionOptions = [
   { label: 'settings.behavior.navPosition.options.right', value: NAVIGATION_POSITIONS.RIGHT }
 ] as const
 
+export const navigationItemsAlignmentOptions = [
+  {
+    label: 'settings.behavior.navItemsAlignment.options.start',
+    value: NAVIGATION_ITEMS_ALIGNMENT.START
+  },
+  {
+    label: 'settings.behavior.navItemsAlignment.options.center',
+    value: NAVIGATION_ITEMS_ALIGNMENT.CENTER
+  },
+  {
+    label: 'settings.behavior.navItemsAlignment.options.end',
+    value: NAVIGATION_ITEMS_ALIGNMENT.END
+  }
+] as const
+
 // Default values
 export const SETTING_DEFAULTS: Record<SettingKey, string> = {
   [SETTING_KEYS.THEME]: 'system',
@@ -91,6 +113,7 @@ export const SETTING_DEFAULTS: Record<SettingKey, string> = {
   [SETTING_KEYS.NAVIGATION_AUTO_HIDE_DELAY]: '0',
   [SETTING_KEYS.NAVIGATION_STYLE]: NAVIGATION_STYLES.SIDE,
   [SETTING_KEYS.NAVIGATION_POSITION]: NAVIGATION_POSITIONS.BOTTOM,
+  [SETTING_KEYS.NAVIGATION_ITEMS_ALIGNMENT]: NAVIGATION_ITEMS_ALIGNMENT.START,
   [SETTING_KEYS.APP_COLUMNS]: '5',
   [SETTING_KEYS.LANGUAGE]: 'en'
 }

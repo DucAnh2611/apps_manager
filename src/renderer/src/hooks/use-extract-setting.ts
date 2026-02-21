@@ -2,6 +2,7 @@ import { Extractor, Transformer } from '@debkit/schema'
 import {
   actionOnCloseOptions,
   monitorIntervalOptions,
+  navigationItemsAlignmentOptions,
   navigationPositionOptions,
   navigationStyleOptions,
   SETTING_DEFAULTS,
@@ -62,6 +63,10 @@ export default function useExtractSetting(settings?: Record<string, string>) {
       [SETTING_KEYS.NAVIGATION_AUTO_HIDE_DELAY]: primitives(
         'string',
         SETTING_DEFAULTS[SETTING_KEYS.NAVIGATION_AUTO_HIDE_DELAY]
+      ),
+      [SETTING_KEYS.NAVIGATION_ITEMS_ALIGNMENT]: stringTypes(
+        valueToStringTypes(navigationItemsAlignmentOptions),
+        SETTING_DEFAULTS[SETTING_KEYS.NAVIGATION_ITEMS_ALIGNMENT]
       )
     })
     .allowNull([])

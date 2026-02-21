@@ -102,6 +102,11 @@ const en = {
   'settings.behavior.navPosition.options.bottom': 'Bottom',
   'settings.behavior.navPosition.options.left': 'Left',
   'settings.behavior.navPosition.options.right': 'Right',
+  'settings.behavior.navItemsAlignment': 'Items alignment',
+  'settings.behavior.navItemsAlignment.description': 'How the items are aligned in the navigation',
+  'settings.behavior.navItemsAlignment.options.start': 'Start',
+  'settings.behavior.navItemsAlignment.options.center': 'Center',
+  'settings.behavior.navItemsAlignment.options.end': 'End',
 
   // Start settings
   'settings.start': 'Start',

@@ -36,6 +36,7 @@ const api = {
   browseForIcon: () => ipcRenderer.invoke('apps:browse-icon'),
 
   // System
+  getAppVersion: () => ipcRenderer.invoke('system:get-app-version'),
   killProcess: (pid: number) => ipcRenderer.invoke('system:kill-process', pid),
 
   // System (push-based event listeners)

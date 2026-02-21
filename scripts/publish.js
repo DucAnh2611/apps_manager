@@ -1,6 +1,8 @@
 const { readFileSync } = require('fs')
 const { execSync } = require('child_process')
 const { resolve } = require('path')
+const dotenv = require('dotenv')
+dotenv.config()
 
 const pkgPath = resolve(__dirname, '..', 'package.json')
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
@@ -24,6 +26,12 @@ if (minVersion) {
 console.log(`Publishing v${version}`)
 if (minVersion) {
   console.log(`Force update for versions below ${minVersion}`)
+}
+
+const GH_TOKEN = process.env.GH_TOKEN
+if (!GH_TOKEN) {
+  console.error('GH_TOKEN is not set')
+  process.exit(1)
 }
 
 execSync('pnpm build:win', { stdio: 'inherit', cwd: resolve(__dirname, '..') })

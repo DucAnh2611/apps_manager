@@ -191,6 +191,7 @@ interface LanguageProgress {
 }
 
 interface AppsManagerAPI {
+  getAppVersion: () => Promise<string>
   getApps: () => Promise<AppRecord[]>
   addApp: (input: AppInput) => Promise<AppRecord>
   updateApp: (input: AppUpdate) => Promise<AppRecord>

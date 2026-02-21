@@ -5,7 +5,11 @@ import { useSettings } from '@renderer/hooks/use-settings'
 import { cn } from '@renderer/lib/utils'
 import { LayoutDashboard, LayoutGrid, Settings } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { NAVIGATION_POSITIONS, NAVIGATION_STYLES } from '../../../shared/constants/settings'
+import {
+  NAVIGATION_ITEMS_ALIGNMENT,
+  NAVIGATION_POSITIONS,
+  NAVIGATION_STYLES
+} from '../../../shared/constants/settings'
 import type { TranslationKey } from '../../../shared/i18n/keys'
 import { Button } from './ui/button'
 import { TooltipSimple } from './ui/tooltip'
@@ -69,6 +73,9 @@ export default function Navigation() {
         position={schemaSetting.navigation_position}
         autoHide={navigationAutoHide}
         delay={navigationAutoHideDelay}
+        itemsAlignment={
+          schemaSetting.navigation_items_alignment as (typeof NAVIGATION_ITEMS_ALIGNMENT)[keyof typeof NAVIGATION_ITEMS_ALIGNMENT]
+        }
       />
     )
   }
@@ -158,7 +165,11 @@ function Floating({ position, autoHide, delay }: NavigationBaseProps) {
   )
 }
 
-function Sidebar({ position, autoHide, delay }: NavigationBaseProps) {
+interface SidebarProps extends NavigationBaseProps {
+  itemsAlignment: (typeof NAVIGATION_ITEMS_ALIGNMENT)[keyof typeof NAVIGATION_ITEMS_ALIGNMENT]
+}
+
+function Sidebar({ position, autoHide, delay, itemsAlignment }: SidebarProps) {
   const { page: currentPage, setPage } = usePage()
   const { t } = useI18n()
 
@@ -185,12 +196,20 @@ function Sidebar({ position, autoHide, delay }: NavigationBaseProps) {
       })}
     >
       <nav
-        className={cn('h-full flex flex-1 flex-col items-center p-2 gap-3 bg-muted', {
-          'flex-row justify-center':
-            position === NAVIGATION_POSITIONS.TOP || position === NAVIGATION_POSITIONS.BOTTOM,
-          'flex-col justify-start':
-            position === NAVIGATION_POSITIONS.LEFT || position === NAVIGATION_POSITIONS.RIGHT
-        })}
+        className={cn(
+          'h-full flex flex-1 flex-col items-center p-2 gap-3 bg-muted',
+          {
+            'flex-row':
+              position === NAVIGATION_POSITIONS.TOP || position === NAVIGATION_POSITIONS.BOTTOM,
+            'flex-col':
+              position === NAVIGATION_POSITIONS.LEFT || position === NAVIGATION_POSITIONS.RIGHT
+          },
+          {
+            'justify-center': itemsAlignment === NAVIGATION_ITEMS_ALIGNMENT.CENTER,
+            'justify-start': itemsAlignment === NAVIGATION_ITEMS_ALIGNMENT.START,
+            'justify-end': itemsAlignment === NAVIGATION_ITEMS_ALIGNMENT.END
+          }
+        )}
       >
         {navItems.map(({ page, labelKey, icon: Icon }) => {
           const label = t(labelKey)

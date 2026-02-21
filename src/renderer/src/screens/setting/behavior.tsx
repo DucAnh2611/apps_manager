@@ -9,8 +9,10 @@ import { useSetSetting } from '@renderer/hooks/use-settings'
 import { useState } from 'react'
 import {
   monitorIntervalOptions,
+  NAVIGATION_ITEMS_ALIGNMENT,
   NAVIGATION_POSITIONS,
   NAVIGATION_STYLES,
+  navigationItemsAlignmentOptions,
   navigationPositionOptions,
   navigationStyleOptions,
   SETTING_KEYS
@@ -163,24 +165,48 @@ export default function SettingsBehavior({ settings }: SettingBehaviorProps) {
           </SectionField>
         </SectionFieldGroup>
 
-        <SectionField
-          label={t('settings.behavior.navStyle')}
-          description={t('settings.behavior.navStyle.description')}
+        <SectionFieldGroup
+          hideGroup={schemaSetting.navigation_style !== NAVIGATION_STYLES.SIDE}
+          main={
+            <SectionField
+              label={t('settings.behavior.navStyle')}
+              description={t('settings.behavior.navStyle.description')}
+            >
+              <ComboboxSimple
+                items={navigationStyleOptions.map((o) => ({
+                  label: t(o.label),
+                  value: o.value
+                }))}
+                value={schemaSetting.navigation_style}
+                onValueChange={(value: unknown) => {
+                  setSetting.mutate({
+                    key: SETTING_KEYS.NAVIGATION_STYLE,
+                    value: (value as string) ?? NAVIGATION_STYLES.SIDE
+                  })
+                }}
+              />
+            </SectionField>
+          }
         >
-          <ComboboxSimple
-            items={navigationStyleOptions.map((o) => ({
-              label: t(o.label),
-              value: o.value
-            }))}
-            value={schemaSetting.navigation_style}
-            onValueChange={(value: unknown) => {
-              setSetting.mutate({
-                key: SETTING_KEYS.NAVIGATION_STYLE,
-                value: (value as string) ?? NAVIGATION_STYLES.SIDE
-              })
-            }}
-          />
-        </SectionField>
+          <SectionField
+            label={t('settings.behavior.navItemsAlignment')}
+            description={t('settings.behavior.navItemsAlignment.description')}
+          >
+            <ComboboxSimple
+              items={navigationItemsAlignmentOptions.map((o) => ({
+                label: t(o.label),
+                value: o.value
+              }))}
+              value={schemaSetting.navigation_items_alignment}
+              onValueChange={(value: unknown) => {
+                setSetting.mutate({
+                  key: SETTING_KEYS.NAVIGATION_ITEMS_ALIGNMENT,
+                  value: (value as string) ?? NAVIGATION_ITEMS_ALIGNMENT.START
+                })
+              }}
+            />
+          </SectionField>
+        </SectionFieldGroup>
 
         <SectionField
           label={t('settings.behavior.navPosition')}
