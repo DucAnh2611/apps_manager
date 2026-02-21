@@ -66,7 +66,7 @@ export async function downloadUpdate(): Promise<void> {
 }
 
 export function installUpdate(): void {
-  autoUpdater.quitAndInstall(false, true)
+  autoUpdater.quitAndInstall(true, true)
 }
 
 export { autoUpdater }

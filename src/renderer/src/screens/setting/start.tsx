@@ -1,24 +1,17 @@
-import {
-  actionOnCloseOptions,
-  SETTING_KEYS,
-  WINDOW_MODES,
-  windowModeOptions
-} from '../../../../shared/constants/settings'
 import { Card, CardContent, CardHeader, CardTitle } from '@renderer/components/ui/card'
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList
-} from '@renderer/components/ui/combobox'
+import { ComboboxSimple } from '@renderer/components/ui/combobox'
 import { Input } from '@renderer/components/ui/input'
 import { Separator } from '@renderer/components/ui/separator'
 import useExtractSetting from '@renderer/hooks/use-extract-setting'
 import { useI18n } from '@renderer/hooks/use-i18n'
 import { useSetSetting } from '@renderer/hooks/use-settings'
 import { useState } from 'react'
+import {
+  actionOnCloseOptions,
+  SETTING_KEYS,
+  WINDOW_MODES,
+  windowModeOptions
+} from '../../../../shared/constants/settings'
 import { SectionField } from './components/section-field'
 
 const MIN_WIDTH = 800
@@ -82,34 +75,20 @@ export default function SettingsStart({ settings }: SettingStartProps) {
           label={t('settings.start.actionOnClose')}
           description={t('settings.start.actionOnClose.description')}
         >
-          <Combobox
-            items={actionOnCloseOptions}
+          <ComboboxSimple
+            items={actionOnCloseOptions.map((o) => ({
+              label: t(o.label),
+              value: o.value
+            }))}
             value={schemaSetting.action_on_close}
-            itemToStringLabel={(item: unknown) => {
-              if (typeof item === 'string')
-                return actionOnCloseOptions.find((action) => action.value === item)?.label ?? ''
-
-              return (item as { label: string }).label
-            }}
             onValueChange={(value: unknown) => {
               setSetting.mutate({
                 key: SETTING_KEYS.ACTION_ON_CLOSE,
                 value: (value as string) ?? actionOnCloseOptions[0].value
               })
             }}
-          >
-            <ComboboxInput placeholder={t('settings.start.actionOnClose.placeholder')} />
-            <ComboboxContent>
-              <ComboboxEmpty> {t('settings.start.actionOnClose.empty')} </ComboboxEmpty>
-              <ComboboxList>
-                {(item) => (
-                  <ComboboxItem key={item.value} value={item.value}>
-                    {item.label}
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
+            placeholder={t('settings.start.actionOnClose.placeholder')}
+          />
         </SectionField>
 
         <SectionField
@@ -118,34 +97,20 @@ export default function SettingsStart({ settings }: SettingStartProps) {
           className="items-start"
         >
           <div className="flex flex-col gap-2">
-            <Combobox
-              items={windowModeOptions}
+            <ComboboxSimple
+              items={windowModeOptions.map((o) => ({
+                label: t(o.label),
+                value: o.value
+              }))}
               value={schemaSetting.window_mode}
-              itemToStringLabel={(item: unknown) => {
-                if (typeof item === 'string')
-                  return windowModeOptions.find((m) => m.value === item)?.label ?? ''
-
-                return (item as { label: string }).label
-              }}
               onValueChange={(value: unknown) => {
                 setSetting.mutate({
                   key: SETTING_KEYS.WINDOW_MODE,
                   value: (value as string) ?? windowModeOptions[1].value
                 })
               }}
-            >
-              <ComboboxInput placeholder={t('settings.start.windowSize.placeholder')} />
-              <ComboboxContent>
-                <ComboboxEmpty> {t('settings.start.windowSize.empty')} </ComboboxEmpty>
-                <ComboboxList>
-                  {(item) => (
-                    <ComboboxItem key={item.value} value={item.value}>
-                      {item.label}
-                    </ComboboxItem>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
+              placeholder={t('settings.start.windowSize.placeholder')}
+            />
 
             {isCustom && (
               <div className="flex flex-col gap-2">

@@ -49,32 +49,32 @@ export const MONITOR_INTERVALS = {
 
 // Setting option arrays for UI dropdowns
 export const monitorIntervalOptions = [
-  { label: '2 seconds', value: MONITOR_INTERVALS.TWO_SECONDS },
-  { label: '5 seconds', value: MONITOR_INTERVALS.FIVE_SECONDS },
-  { label: '10 seconds', value: MONITOR_INTERVALS.TEN_SECONDS },
-  { label: '30 seconds', value: MONITOR_INTERVALS.THIRTY_SECONDS }
+  { label: '2', value: MONITOR_INTERVALS.TWO_SECONDS },
+  { label: '5', value: MONITOR_INTERVALS.FIVE_SECONDS },
+  { label: '10', value: MONITOR_INTERVALS.TEN_SECONDS },
+  { label: '30', value: MONITOR_INTERVALS.THIRTY_SECONDS }
 ] as const
 
 export const actionOnCloseOptions = [
-  { label: 'Quit the app', value: ACTIONS_ON_CLOSE.QUIT },
-  { label: 'Minimize', value: ACTIONS_ON_CLOSE.MINIMIZE }
+  { label: 'settings.start.actionOnClose.options.quit', value: ACTIONS_ON_CLOSE.QUIT },
+  { label: 'settings.start.actionOnClose.options.minimize', value: ACTIONS_ON_CLOSE.MINIMIZE }
 ] as const
 
 export const windowModeOptions = [
-  { label: 'Full screen', value: WINDOW_MODES.FULL },
-  { label: 'Custom', value: WINDOW_MODES.CUSTOM }
+  { label: 'settings.start.windowMode.options.full', value: WINDOW_MODES.FULL },
+  { label: 'settings.start.windowMode.options.custom', value: WINDOW_MODES.CUSTOM }
 ] as const
 
 export const navigationStyleOptions = [
-  { label: 'Side', value: NAVIGATION_STYLES.SIDE },
-  { label: 'Floating', value: NAVIGATION_STYLES.FLOATING }
+  { label: 'settings.behavior.navStyle.options.side', value: NAVIGATION_STYLES.SIDE },
+  { label: 'settings.behavior.navStyle.options.floating', value: NAVIGATION_STYLES.FLOATING }
 ] as const
 
 export const navigationPositionOptions = [
-  { label: 'Bottom', value: NAVIGATION_POSITIONS.BOTTOM },
-  { label: 'Top', value: NAVIGATION_POSITIONS.TOP },
-  { label: 'Left', value: NAVIGATION_POSITIONS.LEFT },
-  { label: 'Right', value: NAVIGATION_POSITIONS.RIGHT }
+  { label: 'settings.behavior.navPosition.options.bottom', value: NAVIGATION_POSITIONS.BOTTOM },
+  { label: 'settings.behavior.navPosition.options.top', value: NAVIGATION_POSITIONS.TOP },
+  { label: 'settings.behavior.navPosition.options.left', value: NAVIGATION_POSITIONS.LEFT },
+  { label: 'settings.behavior.navPosition.options.right', value: NAVIGATION_POSITIONS.RIGHT }
 ] as const
 
 // Default values

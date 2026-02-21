@@ -1,6 +1,6 @@
 {
   "name": "apps-manager",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A simple app manager for Windows, macOS and Linux",
   "main": "./out/main/index.js",
   "author": "DucAnh2611",
@@ -22,7 +22,12 @@
     "build:mac": "electron-vite build && electron-builder --mac",
     "build:linux": "electron-vite build && electron-builder --linux",
     "prepare": "husky",
-    "shadcn:add": "npx shadcn@latest add"
+    "shadcn:add": "npx shadcn@latest add",
+    "pre:hotfix": "node scripts/bump-version.js --type hotfix",
+    "pre:feat": "node scripts/bump-version.js --type feat",
+    "publish:languages": "node scripts/publish-languages.js",
+    "publish:hotfix": "pnpm pre:hotfix && node scripts/publish.js --force",
+    "publish:feat": "pnpm pre:feat && node scripts/publish.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",

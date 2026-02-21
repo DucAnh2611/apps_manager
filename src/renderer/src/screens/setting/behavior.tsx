@@ -1,11 +1,3 @@
-import {
-  monitorIntervalOptions,
-  NAVIGATION_POSITIONS,
-  NAVIGATION_STYLES,
-  navigationPositionOptions,
-  navigationStyleOptions,
-  SETTING_KEYS
-} from '../../../../shared/constants/settings'
 import { Card, CardContent, CardHeader, CardTitle } from '@renderer/components/ui/card'
 import { ComboboxSimple } from '@renderer/components/ui/combobox'
 import { Input } from '@renderer/components/ui/input'
@@ -15,6 +7,14 @@ import useExtractSetting from '@renderer/hooks/use-extract-setting'
 import { useI18n } from '@renderer/hooks/use-i18n'
 import { useSetSetting } from '@renderer/hooks/use-settings'
 import { useState } from 'react'
+import {
+  monitorIntervalOptions,
+  NAVIGATION_POSITIONS,
+  NAVIGATION_STYLES,
+  navigationPositionOptions,
+  navigationStyleOptions,
+  SETTING_KEYS
+} from '../../../../shared/constants/settings'
 import { SectionField, SectionFieldGroup } from './components/section-field'
 
 interface SettingBehaviorProps {
@@ -87,7 +87,10 @@ export default function SettingsBehavior({ settings }: SettingBehaviorProps) {
           description={t('settings.behavior.monitorInterval.description')}
         >
           <ComboboxSimple
-            items={monitorIntervalOptions}
+            items={monitorIntervalOptions.map((o) => ({
+              label: t('settings.behavior.monitorInterval.duration.seconds', { seconds: o.label }),
+              value: o.value
+            }))}
             value={schemaSetting.monitor_interval}
             onValueChange={(value: unknown) => {
               setSetting.mutate({
@@ -165,7 +168,10 @@ export default function SettingsBehavior({ settings }: SettingBehaviorProps) {
           description={t('settings.behavior.navStyle.description')}
         >
           <ComboboxSimple
-            items={navigationStyleOptions}
+            items={navigationStyleOptions.map((o) => ({
+              label: t(o.label),
+              value: o.value
+            }))}
             value={schemaSetting.navigation_style}
             onValueChange={(value: unknown) => {
               setSetting.mutate({
@@ -181,7 +187,10 @@ export default function SettingsBehavior({ settings }: SettingBehaviorProps) {
           description={t('settings.behavior.navPosition.description')}
         >
           <ComboboxSimple
-            items={navigationPositionOptions}
+            items={navigationPositionOptions.map((o) => ({
+              label: t(o.label),
+              value: o.value
+            }))}
             value={schemaSetting.navigation_position}
             onValueChange={(value: unknown) => {
               setSetting.mutate({
